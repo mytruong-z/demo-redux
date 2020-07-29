@@ -1,6 +1,6 @@
 .CounterOutput {
     width: 100%;
-    background-color: #fa923f;
+    background: linear-gradient(90deg,#5ad4a1,#1a7b53);
     color: white;
     font-size: 1.8rem;
     text-align: center;

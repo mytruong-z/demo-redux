@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
 class Counter extends Component {
     state = {
-        counter: 0
+        counter: 0,
+        storedResult: []
     }
 
-    render () {
+    render() {
+        console.log(this.props.storedResult);
         return (
             <div>
-                <CounterOutput value={this.props.ctr} />
-                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
-                <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
-                <CounterControl label="Subtract 10" clicked={this.props.onSubtractCounter}  />
+                <CounterOutput value={this.props.ctr}/>
+                <CounterControl label="Increment" clicked={this.props.onIncrementCounter}/>
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}/>
+                <CounterControl label="Add 10" clicked={this.props.onAddCounter}/>
+                <CounterControl label="Subtract 10" clicked={this.props.onSubtractCounter}/>
+                <hr/>
+                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <ul>
+                    {this.props.storedResult.map(strResult => (
+                        <li key={strResult.id}>{strResult.value}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
@@ -24,7 +33,8 @@ class Counter extends Component {
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter
+        ctr: state.counter,
+        storedResult: state.results
     };
 };
 
@@ -33,8 +43,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
         onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-        onAddCounter: () => dispatch({type: 'ADD', val: 10}),
-        onSubtractCounter: () => dispatch({type: 'SUBTRACT', val: 10}),
+        onAddCounter:       () => dispatch({type: 'ADD', val: 10}),
+        onSubtractCounter:  () => dispatch({type: 'SUBTRACT', val: 10}),
+        onStoreResult:      () => dispatch({type: 'STORE_RESULT'})
     };
 };
 
